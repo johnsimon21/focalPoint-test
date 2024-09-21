@@ -6,6 +6,8 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border: none;
+  outline: none;
 }
 
 :root {
@@ -26,6 +28,9 @@ body {
   width: 100%;
 }
 
+.m-auto {
+  margin-inline: auto !important;
+}
 
 /* Flexbox Model */
 .d-flex {

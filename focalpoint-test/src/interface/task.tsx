@@ -4,4 +4,8 @@ export interface Task {
     checked: boolean;
   }
 
-  
+ export interface ModalCreateTaskProps {
+    setIsModalOpen: (open: boolean) => void;
+    setNewTaskTitle: (title: string) => void;
+    handleAddTask: () => void;
+}
