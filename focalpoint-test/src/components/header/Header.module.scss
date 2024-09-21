@@ -1,0 +1,43 @@
+@import '../../styles/variables.scss';
+
+.header{
+    width: 100%;
+
+    margin-inline: 56px;
+    border-bottom: 1px solid rgba(215, 221, 233, 1);
+
+    .menu_items{
+        flex-basis: 100%;
+        justify-content: space-between;
+        
+        margin: 24px 0;
+        
+        .logo{
+            .logomark {
+                width: 33.17px;
+                height: 33px;
+            }
+            .logotype {
+                width: 106.14px;
+                height: 15.5px;
+                
+                margin-left: 10.44px;
+            }
+        }
+
+        .title{
+            font-family: 'Inter', sans-serif;
+            font-size: 2.4rem;
+            font-weight:  bold;
+            line-height: 2.904rem;
+            letter-spacing: -0.02em;
+        }
+        
+
+        .date{
+            color: $primary-color;
+            font-size: 1.6rem;
+            line-height:  1.936rem;
+        }
+    }
+}
