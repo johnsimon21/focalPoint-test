@@ -15,23 +15,23 @@ export default function TasksList() {
     const [newTaskTitle, setNewTaskTitle] = useState<string>("");
     const [deleteTask, setDeleteTask] = useState<string>("");
 
+
     const saveTasksToLocalStorage = (tasks: Task[]) => {
         localStorage.setItem('tasks', JSON.stringify(tasks));
     };
 
-    // Função utilitária para buscar do localStorage
     const getTasksFromLocalStorage = (): Task[] => {
         const storedTasks = localStorage.getItem('tasks');
         return storedTasks ? JSON.parse(storedTasks) : [];
     };
 
-    // Ao montar o componente, carrega as tasks do localStorage
+
     useEffect(() => {
         const storedTasks = getTasksFromLocalStorage();
         setTasks(storedTasks);
     }, []);
 
-    // Sempre que as tasks forem alteradas, salvar no localStorage
+
     useEffect(() => {
         saveTasksToLocalStorage(tasks);
     }, [tasks]);
@@ -52,8 +52,8 @@ export default function TasksList() {
                 checked: false,
             };
             setTasks([...tasks, newTask]);
-            setIsModalOpen(false); // Fechar o modal após adicionar a tarefa
-            setNewTaskTitle(""); // Resetar o input de nova tarefa
+            setIsModalOpen(false);
+            setNewTaskTitle("");
         }
     };
 
