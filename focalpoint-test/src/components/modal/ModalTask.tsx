@@ -1,8 +1,8 @@
 import { ModalCreateTaskProps } from '@/interface/task';
-import styles from './CreateTaskModal.module.scss';
+import styles from './ModalTask.module.scss';
 
-export const ModalCreateTask: React.FC<ModalCreateTaskProps> = ({ setIsModalOpen, setNewTaskTitle, handleAddTask }) => {
-    
+export const ModalTask: React.FC<ModalCreateTaskProps> = ({ setIsModalOpen, setNewTaskTitle, handleAddTask, confirm_content, confirm_background, modalType }) => {
+
     return (
         <div className={`${styles.modal_create} d-flex`}>
             <div className={`${styles.modal} d-flex flex-column`}>
@@ -25,12 +25,23 @@ export const ModalCreateTask: React.FC<ModalCreateTaskProps> = ({ setIsModalOpen
                     >
                         Cancelar
                     </button>
-                    <button
-                        className={`${styles.add} d-flex`}
-                        onClick={handleAddTask}
-                    >
-                        Adicionar
-                    </button>
+
+                    {modalType === "add" ? (
+                        <button
+                            className={`${styles.confirm} ${styles.add} d-flex`}
+                            onClick={handleAddTask}
+                        >
+                            {confirm_content}
+                        </button>
+                    ) : (modalType === "delete" && (
+                        <button
+                            className={`${styles.confirm} ${styles.delete} d-flex`}
+                            onClick={handleAddTask}
+                        >
+                            {confirm_content}
+                        </button>
+                    ))
+                    }
                 </fieldset>
             </div>
         </div>

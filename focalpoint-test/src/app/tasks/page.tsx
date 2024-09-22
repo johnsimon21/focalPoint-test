@@ -6,13 +6,14 @@ import { Task } from '@/interface/task';
 import { ListTasksByCheckStatus } from '@/utils/ListTasks';
 import TrashIcon from '@/assets/Trash';
 import { ButtonAddTask } from '@/components/buttons/ButtonAddTask';
-import { ModalCreateTask } from '@/components/modal/CreateTaskModal';
+import { ModalTask } from '@/components/modal/ModalTask';
 
 export default function TasksList() {
     const [tasks, setTasks] = useState<Task[]>([]);
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [modalType, setModalType] = useState<string>("");
     const [newTaskTitle, setNewTaskTitle] = useState<string>("");
-
+    
     const handleCheckboxChange = (taskId: string) => {
         setTasks(prevTasks =>
             prevTasks.map(task =>
@@ -59,6 +60,13 @@ export default function TasksList() {
                                 />
                                 <span className={styles.checkmark}></span>
                                 <span className={styles.text}>{task.name} </span>
+                                <div className={`${styles.trash_area} d-flex flex-row`}>
+                                    <TrashIcon
+                                        trash={`${styles.trash} d-flex`}
+                                        setIsModalOpen={setIsModalOpen}
+                                        setModalType={setModalType}
+                                    />
+                                </div>
                             </label>
                         </li>
                     ))}
@@ -76,6 +84,13 @@ export default function TasksList() {
                                             />
                                             <span className={styles.checkmark}></span>
                                             <span className={styles.text_through_line}>{task.name} </span>
+                                            <div className={`${styles.trash_area} d-flex flex-row`}>
+                                                <TrashIcon
+                                                    trash={`${styles.trash} d-flex`}
+                                                    setIsModalOpen={setIsModalOpen}
+                                                    setModalType={setModalType}
+                                                />
+                                            </div>
                                         </label>
                                     </li>
                                 </>
@@ -89,7 +104,11 @@ export default function TasksList() {
                                     <span className={styles.checkmark}></span>
                                     <span className={styles.text_through_line}>{task.name}</span>
                                     <div className={`${styles.trash_area} d-flex flex-row`}>
-                                        {/* <TrashIcon trash={`${styles.trash} d-flex`} /> */}
+                                        <TrashIcon
+                                            trash={`${styles.trash} d-flex`}
+                                            setIsModalOpen={setIsModalOpen}
+                                            setModalType={setModalType}
+                                        />
                                     </div>
                                 </label>
                             </li>
@@ -99,17 +118,31 @@ export default function TasksList() {
                 </ul>
 
             </div>
-            < ButtonAddTask setIsModalOpen={setIsModalOpen} />
+
+            < ButtonAddTask setIsModalOpen={setIsModalOpen} setModalType={setModalType} />
 
             {isModalOpen && (<>
-                <ModalCreateTask
+                modalType === "add" ? (
+                <ModalTask
                     setIsModalOpen={setIsModalOpen}
                     setNewTaskTitle={setNewTaskTitle}
                     handleAddTask={handleAddTask}
+                    confirm_content={"Adicionar"}
+                    modalType={modalType}
+                    confirm_background={styles.add}
                 />
-                {/* {setIsModalOpen(false)} */}
-            </>
-            )}
+                ): (modalType === "delete" && (
+                    <ModalTask
+                    setIsModalOpen={setIsModalOpen}
+                    setNewTaskTitle={setNewTaskTitle}
+                    handleAddTask={handleAddTask}
+                    confirm_content={"Deletar"}
+                    modalType={modalType}
+                    confirm_background={styles.delete}
+                />
+                ))
+
+            </>)}
         </div>
     );
 }
