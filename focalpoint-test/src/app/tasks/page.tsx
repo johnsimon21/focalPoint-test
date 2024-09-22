@@ -35,6 +35,19 @@ export default function TasksList() {
             console.log(isModalOpen)
         }
     };
+    const handleDeleteTask = () => {
+        if (newTaskTitle.trim()) {
+            const newTask: Task = {
+                id: (tasks.length + 1).toString(),
+                name: newTaskTitle,
+                checked: false,
+            };
+            setTasks([...tasks, newTask]);
+            setIsModalOpen(false); // Fechar o modal após adicionar a tarefa
+            setNewTaskTitle(""); // Resetar o input de nova tarefa
+            console.log(isModalOpen)
+        }
+    };
 
     useEffect(() => {
         const taskService = new TaskService();
@@ -64,7 +77,7 @@ export default function TasksList() {
                                     <TrashIcon
                                         trash={`${styles.trash} d-flex`}
                                         setIsModalOpen={setIsModalOpen}
-                                        setModalType={setModalType}
+                                        setModalType={setModalType}                                        
                                     />
                                 </div>
                             </label>
@@ -127,7 +140,7 @@ export default function TasksList() {
                     setIsModalOpen={setIsModalOpen}
                     setNewTaskTitle={setNewTaskTitle}
                     handleAddTask={handleAddTask}
-                    confirm_content={"Adicionar"}
+                    handleDeleteTask={handleDeleteTask}
                     modalType={modalType}
                     confirm_background={styles.add}
                 />
@@ -136,7 +149,7 @@ export default function TasksList() {
                     setIsModalOpen={setIsModalOpen}
                     setNewTaskTitle={setNewTaskTitle}
                     handleAddTask={handleAddTask}
-                    confirm_content={"Deletar"}
+                    handleDeleteTask={handleDeleteTask}
                     modalType={modalType}
                     confirm_background={styles.delete}
                 />

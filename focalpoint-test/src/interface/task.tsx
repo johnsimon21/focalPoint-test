@@ -8,7 +8,7 @@ export interface ModalCreateTaskProps {
   setIsModalOpen: (open: boolean) => void;
   setNewTaskTitle: (title: string) => void;
   handleAddTask: () => void;
-  confirm_content: string;
+  handleDeleteTask: () => void;
   confirm_background: string;
   modalType: string
 }

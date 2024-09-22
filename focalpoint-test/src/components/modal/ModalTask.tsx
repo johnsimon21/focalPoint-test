@@ -1,7 +1,7 @@
 import { ModalCreateTaskProps } from '@/interface/task';
 import styles from './ModalTask.module.scss';
 
-export const ModalTask: React.FC<ModalCreateTaskProps> = ({ setIsModalOpen, setNewTaskTitle, handleAddTask, confirm_content, confirm_background, modalType }) => {
+export const ModalTask: React.FC<ModalCreateTaskProps> = ({ setIsModalOpen, setNewTaskTitle, handleAddTask, handleDeleteTask, confirm_background, modalType }) => {
 
     return (
         <div className={`${styles.modal_create} d-flex`}>
@@ -31,14 +31,14 @@ export const ModalTask: React.FC<ModalCreateTaskProps> = ({ setIsModalOpen, setN
                             className={`${styles.confirm} ${styles.add} d-flex`}
                             onClick={handleAddTask}
                         >
-                            {confirm_content}
+                            Adicionar
                         </button>
                     ) : (modalType === "delete" && (
                         <button
                             className={`${styles.confirm} ${styles.delete} d-flex`}
-                            onClick={handleAddTask}
+                            onClick={handleDeleteTask}
                         >
-                            {confirm_content}
+                            Deletar
                         </button>
                     ))
                     }
