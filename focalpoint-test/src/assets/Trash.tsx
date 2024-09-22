@@ -1,12 +1,13 @@
 
 import React from 'react';
 
-const TrashIcon: React.FC<{ trash?: string, setIsModalOpen: (open: boolean) => void, setModalType: (type: string) => void }> = ({ trash, setModalType, setIsModalOpen }) => {
+const TrashIcon: React.FC<{ trash?: string, taskId: string, setIsModalOpen: (open: boolean) => void, setDeleteTask: (id: string) => void, setModalType: (type: string) => void }> = ({ trash, taskId, setDeleteTask, setModalType, setIsModalOpen }) => {
 
     const handleTrashClick = () => {
         setModalType("delete")
         setIsModalOpen(true)
-        console.log("Trasch Icon Clicked")
+        setDeleteTask(taskId)
+        console.log(taskId)
     }
 
     return (

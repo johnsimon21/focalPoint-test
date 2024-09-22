@@ -4,7 +4,6 @@ import { Header } from "@/components/header/Header";
 
 export const metadata: Metadata = {
   title: "Minhas Tarefas",
-  description: "",
 };
 
 export default function RootLayout({
@@ -15,8 +14,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Header />
-        {children}
+        <div className="container">
+          <Header />
+          {children}
+        </div>
       </body>
     </html>
   );

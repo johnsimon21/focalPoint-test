@@ -7,8 +7,8 @@ export interface Task {
 export interface ModalCreateTaskProps {
   setIsModalOpen: (open: boolean) => void;
   setNewTaskTitle: (title: string) => void;
+  handleDeleteTask: (id: string) => void;
   handleAddTask: () => void;
-  handleDeleteTask: () => void;
-  confirm_background: string;
+  taskId: string;
   modalType: string
 }

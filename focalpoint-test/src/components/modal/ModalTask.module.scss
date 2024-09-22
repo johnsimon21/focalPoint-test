@@ -1,3 +1,5 @@
+@import "../../styles/variables.scss";
+
 .modal_create{
     background-color: rgba(255, 255, 255, 0.8);   
 
@@ -30,7 +32,7 @@
 
         fieldset.inputs{
             margin: 32px 0;
-
+            
             input[type=text] {
                 padding: 16px;
                 margin-top: 8px;
@@ -40,6 +42,11 @@
 
                 border: 1px solid rgba(215, 221, 233, 1);
                 border-radius: 8px;                
+            }
+
+            .ask_to_delelte{
+                color: $primary-color;
+                margin-top: 32px;
             }
         }
 
@@ -73,3 +80,26 @@
     }
 
 }
+
+
+@media (max-width: 450px) {    
+    .modal_create {
+        align-items: normal;        
+    }
+    .modal_create .modal{
+        justify-content: start;
+    }
+  }
+@media (max-width: 320px) {    
+
+    .modal_create .modal fieldset.buttons{
+        flex-wrap: wrap;
+        flex-direction: column;
+
+        button.confirm{
+            margin-left: 0;
+            margin-top: 16px;
+        }
+
+    }
+  }

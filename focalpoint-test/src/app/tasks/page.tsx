@@ -13,7 +13,29 @@ export default function TasksList() {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
     const [modalType, setModalType] = useState<string>("");
     const [newTaskTitle, setNewTaskTitle] = useState<string>("");
-    
+    const [deleteTask, setDeleteTask] = useState<string>("");
+
+    const saveTasksToLocalStorage = (tasks: Task[]) => {
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    };
+
+    // Função utilitária para buscar do localStorage
+    const getTasksFromLocalStorage = (): Task[] => {
+        const storedTasks = localStorage.getItem('tasks');
+        return storedTasks ? JSON.parse(storedTasks) : [];
+    };
+
+    // Ao montar o componente, carrega as tasks do localStorage
+    useEffect(() => {
+        const storedTasks = getTasksFromLocalStorage();
+        setTasks(storedTasks);
+    }, []);
+
+    // Sempre que as tasks forem alteradas, salvar no localStorage
+    useEffect(() => {
+        saveTasksToLocalStorage(tasks);
+    }, [tasks]);
+
     const handleCheckboxChange = (taskId: string) => {
         setTasks(prevTasks =>
             prevTasks.map(task =>
@@ -32,27 +54,14 @@ export default function TasksList() {
             setTasks([...tasks, newTask]);
             setIsModalOpen(false); // Fechar o modal após adicionar a tarefa
             setNewTaskTitle(""); // Resetar o input de nova tarefa
-            console.log(isModalOpen)
-        }
-    };
-    const handleDeleteTask = () => {
-        if (newTaskTitle.trim()) {
-            const newTask: Task = {
-                id: (tasks.length + 1).toString(),
-                name: newTaskTitle,
-                checked: false,
-            };
-            setTasks([...tasks, newTask]);
-            setIsModalOpen(false); // Fechar o modal após adicionar a tarefa
-            setNewTaskTitle(""); // Resetar o input de nova tarefa
-            console.log(isModalOpen)
         }
     };
 
-    useEffect(() => {
-        const taskService = new TaskService();
-        setTasks(taskService.getTasks());
-    }, []);
+    const handleDeleteTask = (taskId: string) => {
+        const updatedTasks = tasks.filter((task) => task.id !== taskId);
+        setTasks(updatedTasks);
+        setIsModalOpen(false);
+    };
 
 
     return (
@@ -77,7 +86,9 @@ export default function TasksList() {
                                     <TrashIcon
                                         trash={`${styles.trash} d-flex`}
                                         setIsModalOpen={setIsModalOpen}
-                                        setModalType={setModalType}                                        
+                                        setModalType={setModalType}
+                                        setDeleteTask={setDeleteTask}
+                                        taskId={task.id}
                                     />
                                 </div>
                             </label>
@@ -102,8 +113,11 @@ export default function TasksList() {
                                                     trash={`${styles.trash} d-flex`}
                                                     setIsModalOpen={setIsModalOpen}
                                                     setModalType={setModalType}
+                                                    setDeleteTask={setDeleteTask}
+                                                    taskId={task.id}
                                                 />
                                             </div>
+
                                         </label>
                                     </li>
                                 </>
@@ -121,8 +135,11 @@ export default function TasksList() {
                                             trash={`${styles.trash} d-flex`}
                                             setIsModalOpen={setIsModalOpen}
                                             setModalType={setModalType}
+                                            setDeleteTask={setDeleteTask}
+                                            taskId={task.id}
                                         />
                                     </div>
+
                                 </label>
                             </li>
                             }
@@ -141,17 +158,17 @@ export default function TasksList() {
                     setNewTaskTitle={setNewTaskTitle}
                     handleAddTask={handleAddTask}
                     handleDeleteTask={handleDeleteTask}
+                    taskId={deleteTask}
                     modalType={modalType}
-                    confirm_background={styles.add}
                 />
                 ): (modalType === "delete" && (
-                    <ModalTask
+                <ModalTask
                     setIsModalOpen={setIsModalOpen}
                     setNewTaskTitle={setNewTaskTitle}
                     handleAddTask={handleAddTask}
                     handleDeleteTask={handleDeleteTask}
+                    taskId={deleteTask}
                     modalType={modalType}
-                    confirm_background={styles.delete}
                 />
                 ))
 

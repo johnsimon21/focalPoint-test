@@ -3,12 +3,12 @@
 .header{
     width: 100%;
 
-    margin-inline: 56px;
     border-bottom: 1px solid rgba(215, 221, 233, 1);
 
     .menu_items{
         flex-basis: 100%;
         justify-content: space-between;
+        flex-wrap: wrap;
         
         margin: 24px 0;
         
@@ -38,6 +38,15 @@
             color: $primary-color;
             font-size: 1.6rem;
             line-height:  1.936rem;
+            align-items: center;
         }
     }
 }
+
+@media (max-width: 568px) {
+    .header .menu_items .title {
+      margin: 8px 0;
+
+      font-size: 1.6rem;
+    }
+  }
